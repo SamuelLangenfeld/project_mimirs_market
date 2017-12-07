@@ -1,15 +1,55 @@
+  <div class="row">
+    <div style="text-align:center">
+    <h1>{{product.name}}</h1>
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+      <div class="product-square">
         <div>
-          {{product.name}}
+           <strong>Price: </strong>{{product.price}}
         </div>
         <div>
-          {{product.price}}
+           <strong>Description: </strong>{{product.description}}
         </div>
         <div>
-          {{product.description}}
+           <strong>Sku: </strong>{{product.sku}}
         </div>
         <div>
-          {{product.sku}}
+           <strong>Category: </strong>{{product.CategoryId.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <br>
+    <br>
+    <h3>Similar Products</h3>
+    {{#each arrays as |array|}}
+<div class="row">
+  {{#each array as |product|}}
+  <div class="col-md-4">
+    <div class="product-square">
+      <a href='/products/{{product.id}}'>
+        <div>
+          <strong>Name: </strong>{{product.name}}
         </div>
         <div>
-          {{product.categoryId.name}}
+          <strong>Price: </strong>{{product.price}}
         </div>
+        <div>
+          <strong>Description: </strong>{{product.description}}
+        </div>
+        <div>
+          <strong>Sku: </strong>{{product.sku}}
+        </div>
+        <div>
+          <strong>Category: </strong>{{product.CategoryId.name}}
+        </div>
+      </a>
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{/each}}
+
+
+

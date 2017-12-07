@@ -11,7 +11,8 @@ module.exports = {
         name: faker.commerce.productName(),
         sku: faker.random.number(),
         price: faker.commerce.price(),
-        description: faker.commerce.product()
+        description: faker.commerce.product(),
+        categoryId: Math.random() * 4 + 1
       });
     }
     return queryInterface.bulkInsert('Products', products);

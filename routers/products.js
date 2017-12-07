@@ -5,32 +5,34 @@ var Product = models.Product;
 var CategoryId = models.CategoryId;
 var sequelize = models.sequelize;
 
-
-/*var onIndex = (req, res) => {
-  User.findAll()
-    .then((users) => {
-      res.render('users/index', { users });
-    })
-    .catch((e) => res.status(500).send(e.stack));
-};*/
-
-router.get('/:productId', (req, res) => {
-  Product.findById(req.params.productId, { include: [{ model: CategoryId }] }).then(product => {
-
-    res.render('products/show', { product })
+const makeArraysOfThree = function(products) {
+  let arrays = [];
+  products.map((product, i) => {
+    arrays[Math.floor(i / 3)] = arrays[Math.floor(i / 3)] || [];
+    arrays[Math.floor(i / 3)][i % 3] = product;
   });
+  return arrays;
+}
 
+router.get('/:productId', async function(req, res) {
+  try {
+    let product = await Product.findById(req.params.productId, { include: [{ model: CategoryId }] });
+    let similarProducts = await Product.findAll({ include: [{ model: CategoryId }], where: { categoryId: product.categoryId, id: { $ne: product.id } } });
+    let arrays = makeArraysOfThree(similarProducts);
+    res.render('products/show', { product, arrays });
+  } catch (e) {
+    next();
+  }
 });
 
-router.get('/', (req, res) => {
-  Product.findAll().then(products => {
-    let arrayOne = [];
-    products.map((product, i) => {
-      arrayOne[Math.floor(i / 3)] = arrayOne[Math.floor(i / 3)] || [];
-      arrayOne[Math.floor(i / 3)][i % 3] = product;
-    });
-    res.render('products/index', { arrayOne })
-  });
+router.get('/', async function(req, res) {
+  try {
+    let products = await Product.findAll({ include: [{ model: CategoryId }] });
+    let arrays = makeArraysOfThree(products);
+    res.render('products/index', { arrays })
+  } catch (e) {
+    next();
+  }
 
 });
 

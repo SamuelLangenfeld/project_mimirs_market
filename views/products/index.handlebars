@@ -1,20 +1,26 @@
-{{#each arrayOne as |array|}}
+<h3 style="text-align:center">Products</h3>
+
+
+{{#each arrays as |array|}}
 <div class="row">
   {{#each array as |product|}}
   <div class="col-md-4">
     <div class="product-square">
       <a href='/products/{{product.id}}'>
         <div>
-          {{product.name}}
+          <strong>Name: </strong>{{product.name}}
         </div>
         <div>
-          {{product.price}}
+          <strong>Price: </strong>{{product.price}}
         </div>
         <div>
-          {{product.description}}
+          <strong>Description: </strong>{{product.description}}
         </div>
         <div>
-          {{product.sku}}
+          <strong>Sku: </strong>{{product.sku}}
+        </div>
+        <div>
+          <strong>Category: </strong>{{product.CategoryId.name}}
         </div>
       </a>
     </div>
