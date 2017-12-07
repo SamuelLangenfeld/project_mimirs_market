@@ -46,9 +46,36 @@ router.get('/', async function(req, res) {
     if (req.query.category) {
       categoryQueryObj["name"] = req.query.category;
     }
+    let sort = [];
+    if (req.query.sort ==="sortNameAscend"){
+       sort = ['name', 'ASC']
+    }
 
+     if (req.query.sort ==="sortNameDescend"){
+       sort = ['name', 'DESC']
+    }
 
-    let products = await Product.findAll({ where: queryObj, include: [{ model: CategoryId, where: categoryQueryObj }] });
+     if (req.query.sort ==="sortPriceAscend"){
+       sort = ['price', 'ASC']
+    }
+
+     if (req.query.sort ==="sortPriceDescend"){
+       sort = ['price', 'DESC']
+    }
+
+     if (req.query.sort ==="sortNewest"){
+       sort = ['createdAt', 'DESC']
+    }
+
+    if (req.query.sort ==="sortOldest"){
+       sort = ['createdAt', 'ASC']
+    }
+
+if (sort.length === 0){
+  sort = ['price', 'DESC']
+} 
+
+    let products = await Product.findAll({ order : [sort], where: queryObj, include: [{ model: CategoryId, where: categoryQueryObj }] });
     let categoriesAll = await CategoryId.findAll();
     let categories = [];
     categoriesAll.forEach((category) => {
