@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models/sequelize');
 var Product = models.Product;
+var CategoryId = models.CategoryId;
 var sequelize = models.sequelize;
 
 
@@ -13,11 +14,28 @@ var sequelize = models.sequelize;
     .catch((e) => res.status(500).send(e.stack));
 };*/
 
+router.get('/:productId', (req, res) => {
+  Product.findById(req.params.productId, { include: [{ model: CategoryId }] }).then(product => {
 
-router.get('/', (req,res)=>{
-let products = await (Product.findAll());
-res.render('products/index', {products})
+    res.render('products/show', { product })
+  });
+
 });
+
+router.get('/', (req, res) => {
+  Product.findAll().then(products => {
+    let arrayOne = [];
+    products.map((product, i) => {
+      arrayOne[Math.floor(i / 3)] = arrayOne[Math.floor(i / 3)] || [];
+      arrayOne[Math.floor(i / 3)][i % 3] = product;
+    });
+    res.render('products/index', { arrayOne })
+  });
+
+});
+
+
+
 
 /*
 router.get('/users', onIndex);

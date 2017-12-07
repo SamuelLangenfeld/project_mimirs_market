@@ -1,4 +1,24 @@
-{{#each products as |product|}}
-
-{{product.name}} 
+{{#each arrayOne as |array|}}
+<div class="row">
+  {{#each array as |product|}}
+  <div class="col-md-4">
+    <div class="product-square">
+      <a href='/products/{{product.id}}'>
+        <div>
+          {{product.name}}
+        </div>
+        <div>
+          {{product.price}}
+        </div>
+        <div>
+          {{product.description}}
+        </div>
+        <div>
+          {{product.sku}}
+        </div>
+      </a>
+    </div>
+  </div>
+  {{/each}}
+</div>
 {{/each}}

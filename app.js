@@ -87,6 +87,10 @@ app.use(morganToolkit());
 // ----------------------------------------
 // Routes
 // ----------------------------------------
+
+
+app.use('/products', products);
+
 app.use('/', (req, res) => {
   req.flash('Hi!');
   res.render('welcome/index');
@@ -130,7 +134,6 @@ if (require.main === module) {
   app.listen.apply(app, args);
 }
 
-app.use('/products', products);
 // ----------------------------------------
 // Error Handling
 // ----------------------------------------
@@ -147,9 +150,3 @@ app.use((err, req, res, next) => {
 
 
 module.exports = app;
-
-
-
-
-
-

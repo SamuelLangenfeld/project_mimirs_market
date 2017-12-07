@@ -8,7 +8,7 @@ module.exports = {
     var products = [];
     for (let i = 0; i < 20; i++) {
       products.push({
-        name: "bob",
+        name: faker.commerce.productName(),
         sku: faker.random.number(),
         price: faker.commerce.price(),
         description: faker.commerce.product()

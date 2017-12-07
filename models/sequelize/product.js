@@ -4,7 +4,15 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     sku: DataTypes.INTEGER,
     description: DataTypes.STRING,
-    price: DataTypes.DECIMAL
+    price: DataTypes.DECIMAL,
+    categoryId: DataTypes.STRING
   });
+
+  Product.associate = function(models) {
+    Product.belongsTo(models.CategoryId, {
+      foreignKey: "categoryId"
+    });
+  };
+
   return Product;
 };
