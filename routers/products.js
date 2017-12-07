@@ -52,10 +52,7 @@ router.get('/', async function(req, res) {
     let categoriesAll = await CategoryId.findAll();
     let categories = [];
     categoriesAll.forEach((category) => {
-      if (!categories.includes(category.name)) {
-        categories.push(category.name)
-      }
-
+      categories.push(category.name)
     })
     let arrays = makeArraysOfThree(products);
     res.render('products/index', { arrays, categories })
