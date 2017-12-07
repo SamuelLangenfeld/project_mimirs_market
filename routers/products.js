@@ -28,8 +28,15 @@ router.get('/:productId', async function(req, res) {
 router.get('/', async function(req, res) {
   try {
     let products = await Product.findAll({ include: [{ model: CategoryId }] });
+    let categories = [];
+    products.forEach((product) =>{
+      if (!categories.include(product.categoryId.name)){
+          categories.push(product.categoryId.name)
+      }
+
+    })
     let arrays = makeArraysOfThree(products);
-    res.render('products/index', { arrays })
+    res.render('products/index', { arrays, categories})
   } catch (e) {
     next();
   }

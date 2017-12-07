@@ -1,6 +1,59 @@
 <h3 style="text-align:center">Products</h3>
 
 
+<div class='container'>
+<div class="from-group row">
+<form class="search" method="get" action="/products">
+<input type="text" class="form-control" placeholder="Search" name="search">
+<input class="float-right" value="Submit Search" type="submit">
+</form>
+</div>
+ <div class='row'>
+  <form class="form-control" action='/products/' method="get">  
+  <select name="category">
+  <option value="defaultFilter">Filter By Category</option> 
+  {{#each categories as |category|}}
+  <option value="{{category.name}}">{{category.name}}</option> 
+  {{/each}}
+  </select>
+  <select name="minPrice">
+  <option value="defaultFilter">Min Price</option> 
+  <option value="200">200</option> 
+  <option value="400">400</option>
+  <option value="600">600</option>
+  <option value="800">800</option>
+  <option value="1000">1000</option>
+  </select>
+  <select name="maxPrice">
+  <option value="defaultFilter">Max Price</option> 
+  <option value="200">200</option> 
+  <option value="400">400</option>
+  <option value="600">600</option>
+  <option value="800">800</option>
+  <option value="1000">1000</option>
+  </select>
+  <input class="float-right" value="Submit Filter" type="submit">
+  </form>
+ </div>
+</div>
+<div class='container'>
+ <div class='row'>
+  <form class="form-control" action='/products' method="get">
+  
+  <select name="sort">
+  <option value="sortNameAscend">Sort By Name Ascending</option> 
+  <option value="sortNameDescend">Sort By Name Descending</option> 
+  <option value="sortPriceAscend">Sort By Price Ascending</option>
+  <option value="sortPriceDescend">Sort By Name Descending</option>
+  <option value="sortNewest">Sort By Newest First</option>
+  <option value="sortOldest">Sort By Oldest First</option>
+  </select>
+  <input class="float-right" value="Submit Sort By Filter" type="submit">
+  </form>
+ </div>
+</div>
+
+
 {{#each arrays as |array|}}
 <div class="row">
   {{#each array as |product|}}
