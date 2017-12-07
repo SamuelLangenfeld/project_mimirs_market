@@ -27,18 +27,36 @@ router.get('/:productId', async function(req, res) {
 
 router.get('/', async function(req, res) {
   try {
-    let products = await Product.findAll({ include: [{ model: CategoryId }] });
+    let queryObj = {};
+    console.log("REQ.Query.maxPrice is " + req.query.maxPrice)
+
+    if (req.query.category) {
+      queryObj["CategoryId.name"] = req.query.category;
+    }
+    console.log("REQ.Query.minPrice is " + req.query.minPrice)
+    if (req.query.minPrice) {
+      queryObj["price"] = queryObj["price"] || {};
+      queryObj["price"]["$gte"] = Number(req.query.minPrice)
+    }
+
+    if (req.query.maxPrice) {
+      queryObj["price"] = queryObj["price"] || {};
+      queryObj["price"]["$lte"] = Number(req.query.maxPrice)
+    }
+
+
+    let products = await Product.findAll({ where: queryObj, include: [{ model: CategoryId }] });
     let categories = [];
-    products.forEach((product) =>{
-      if (!categories.include(product.categoryId.name)){
-          categories.push(product.categoryId.name)
+    products.forEach((product) => {
+      if (!categories.includes(product.CategoryId.name)) {
+        categories.push(product.CategoryId.name)
       }
 
     })
     let arrays = makeArraysOfThree(products);
-    res.render('products/index', { arrays, categories})
+    res.render('products/index', { arrays, categories })
   } catch (e) {
-    next();
+    console.error(e);
   }
 
 });

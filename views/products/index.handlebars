@@ -11,13 +11,13 @@
  <div class='row'>
   <form class="form-control" action='/products/' method="get">  
   <select name="category">
-  <option value="defaultFilter">Filter By Category</option> 
+  <option value="">Filter By Category</option> 
   {{#each categories as |category|}}
-  <option value="{{category.name}}">{{category.name}}</option> 
+  <option value="{{category}}">{{category}}</option> 
   {{/each}}
   </select>
   <select name="minPrice">
-  <option value="defaultFilter">Min Price</option> 
+  <option value="">Min Price</option> 
   <option value="200">200</option> 
   <option value="400">400</option>
   <option value="600">600</option>
@@ -25,7 +25,7 @@
   <option value="1000">1000</option>
   </select>
   <select name="maxPrice">
-  <option value="defaultFilter">Max Price</option> 
+  <option value="">Max Price</option> 
   <option value="200">200</option> 
   <option value="400">400</option>
   <option value="600">600</option>
