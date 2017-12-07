@@ -8,9 +8,10 @@ module.exports = {
     var products = [];
     for (let i = 0; i < 20; i++) {
       products.push({
-        name: faker.commerce.productName(),
+        name: "bob",
         sku: faker.random.number(),
         price: faker.commerce.price(),
+        description: faker.commerce.product()
       });
     }
     return queryInterface.bulkInsert('Products', products);

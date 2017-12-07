@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const products = require('./routers/products');
 
 // ----------------------------------------
 // App Variables
@@ -130,7 +130,7 @@ if (require.main === module) {
   app.listen.apply(app, args);
 }
 
-
+app.use('/products', products);
 // ----------------------------------------
 // Error Handling
 // ----------------------------------------
