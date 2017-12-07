@@ -30,9 +30,7 @@ router.get('/', async function(req, res) {
     let queryObj = {};
     console.log("REQ.Query.maxPrice is " + req.query.maxPrice)
 
-    if (req.query.category) {
-      queryObj["CategoryId.name"] = req.query.category;
-    }
+
     console.log("REQ.Query.minPrice is " + req.query.minPrice)
     if (req.query.minPrice) {
       queryObj["price"] = queryObj["price"] || {};
@@ -44,12 +42,18 @@ router.get('/', async function(req, res) {
       queryObj["price"]["$lte"] = Number(req.query.maxPrice)
     }
 
+    let categoryQueryObj = {};
+    if (req.query.category) {
+      categoryQueryObj["name"] = req.query.category;
+    }
 
-    let products = await Product.findAll({ where: queryObj, include: [{ model: CategoryId }] });
+
+    let products = await Product.findAll({ where: queryObj, include: [{ model: CategoryId, where: categoryQueryObj }] });
+    let categoriesAll = await CategoryId.findAll();
     let categories = [];
-    products.forEach((product) => {
-      if (!categories.includes(product.CategoryId.name)) {
-        categories.push(product.CategoryId.name)
+    categoriesAll.forEach((category) => {
+      if (!categories.includes(category.name)) {
+        categories.push(category.name)
       }
 
     })
