@@ -1,9 +1,9 @@
-module.exports = 
+var env = require('dotenv').config();
 
-{
+module.exports = {
   "development": {
-    "username": null,
-    "password": null,
+    "username": process.env.POSTGRES_USERNAME,
+    "password": process.env.POSTGRES_PASSWORD,
     "database": "project_mimirs_market_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
@@ -20,5 +20,3 @@ module.exports =
     "dialect": "postgres"
   }
 }
-
-

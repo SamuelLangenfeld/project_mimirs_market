@@ -5,12 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     sku: DataTypes.INTEGER,
     description: DataTypes.STRING,
     price: DataTypes.DECIMAL
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
   return Product;
 };
