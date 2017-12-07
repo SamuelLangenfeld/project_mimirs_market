@@ -47,35 +47,43 @@ router.get('/', async function(req, res) {
       categoryQueryObj["name"] = req.query.category;
     }
     let sort = [];
-    if (req.query.sort ==="sortNameAscend"){
-       sort = ['name', 'ASC']
+    if (req.query.sort === "sortNameAscend") {
+      sort = ['name', 'ASC']
     }
 
-     if (req.query.sort ==="sortNameDescend"){
-       sort = ['name', 'DESC']
+    if (req.query.sort === "sortNameDescend") {
+      sort = ['name', 'DESC']
     }
 
-     if (req.query.sort ==="sortPriceAscend"){
-       sort = ['price', 'ASC']
+    if (req.query.sort === "sortPriceAscend") {
+      sort = ['price', 'ASC']
     }
 
-     if (req.query.sort ==="sortPriceDescend"){
-       sort = ['price', 'DESC']
+    if (req.query.sort === "sortPriceDescend") {
+      sort = ['price', 'DESC']
     }
 
-     if (req.query.sort ==="sortNewest"){
-       sort = ['createdAt', 'DESC']
+    if (req.query.sort === "sortNewest") {
+      sort = ['updatedAt', 'DESC']
     }
 
-    if (req.query.sort ==="sortOldest"){
-       sort = ['createdAt', 'ASC']
+    if (req.query.sort === "sortOldest") {
+      sort = ['updatedAt', 'ASC']
     }
 
-if (sort.length === 0){
-  sort = ['price', 'DESC']
-} 
+    if (sort.length === 0) {
+      sort = ['price', 'DESC']
+    }
 
-    let products = await Product.findAll({ order : [sort], where: queryObj, include: [{ model: CategoryId, where: categoryQueryObj }] });
+    let search = "%"
+    if (req.query.search) {
+      search = `%${req.query.search}%`
+    }
+    queryObj["name"] = { '$iLike': search };
+
+    console.log("Search is " + search);
+
+    let products = await Product.findAll({ order: [sort], where: queryObj, include: [{ model: CategoryId, where: categoryQueryObj }] });
     let categoriesAll = await CategoryId.findAll();
     let categories = [];
     categoriesAll.forEach((category) => {
