@@ -77,7 +77,7 @@ router.get('/', async function(req, res) {
 
     let search = "%"
     if (req.query.search) {
-      search = `%${req.query.search}%`
+      search = `%${req.query.search}%`;
     }
     queryObj["name"] = { '$iLike': search };
 
