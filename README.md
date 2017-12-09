@@ -20,31 +20,42 @@ SQL Sequelize Models
 
 NoSQL mongoose models
   Order
-    items: Array of Product Ids
-    date:
-    revenue:
-    customerId:
+    items: [
+            {productId:objectId, productName: string, price:number, category:string, quantity:number, productSku:number, quantity:number}
+          ]
+    date: time
+    StripeToken: string
+    creditCard: string("visa")
+    revenue: number
+    user: fname
+          lname
+          email
+          username
+          street
+          city
+    state: string
 
-  
-
-added at database seed
-  State
-    name
-
-  Product
-    name:String
-    sku:Integer
-    description:string
-    category: string
+  UnitSale
+    sku:number
+    name:string
     price:number
-    timestamp:time
+    category:string
 
 
-  User
-    fname
-    lname
-    email
-    username
-    street
-    city
-    stateId
+NOSQL
+
+Need to view previous orders. These have a list of products and a user.
+Need to see Totals for
+  -all revenue ever
+  -number of units sold ever
+  -total number of orders ever
+  -total unique customers
+  -total unique products
+  -total unique categories
+  -total unique states withn an order
+
+
+Need to break down total Revenue
+  by product
+  by state
+  by category

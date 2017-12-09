@@ -16,6 +16,14 @@
         <div>
            <strong>Category: </strong>{{product.CategoryId.name}}
         </div>
+        <div class="">
+          <form action="/cart" method="post">
+            <div class="form-group">
+              <input type="hidden" name="productId" value="{{product.id}}">
+              <input class="form-control btn btn-primary" type="submit" value="Add To Cart">
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -44,7 +52,14 @@
         <div>
           <strong>Category: </strong>{{product.CategoryId.name}}
         </div>
+        
       </a>
+      <form action="/cart" method="post">
+          <div class="form-group">
+            <input type="hidden" name="productId" value="{{product.id}}">
+            <input class="form-control btn btn-primary" type="submit" value="Add To Cart">
+          </div>
+        </form>
     </div>
   </div>
   {{/each}}

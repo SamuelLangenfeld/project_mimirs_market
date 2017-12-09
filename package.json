@@ -41,13 +41,15 @@
     "lodash": "^4.17.4",
     "method-override": "^2.3.10",
     "mongoose": "^4.13.6",
+    "mongooseeder": "^2.0.5",
     "morgan": "^1.9.0",
     "morgan-toolkit": "^1.0.2",
     "mysql2": "^1.5.1",
     "pg": "^7.4.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.27.0",
-    "sequelize-cli": "^3.2.0"
+    "sequelize-cli": "^3.2.0",
+    "stripe": "^5.4.0"
   },
   "devDependencies": {}
 }

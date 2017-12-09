@@ -1,0 +1,55 @@
+<h1>Shopping Cart</h1>
+
+
+{{#each cart as |product|}}
+<div class="row">
+  <div class="col-md-4 col-md-offset-3">
+    <div class="product-square">
+      <div>
+        <strong>Product: </strong>{{product.name}}
+      </div>
+      <div>
+        <strong>Description: </strong>{{product.description}}
+      </div>
+      <div>
+        <strong>Price: </strong>{{product.price}}
+      </div>
+      <div>
+        <strong>Sku: </strong>{{product.sku}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="product-square">
+      
+      <form action="/cart" method="post" >
+        <div class="form-group">
+          <label style="display:inline-block">Quantity: </label><input style="display:inline-block;width:50px;" class="form-control" type="number" value="{{product.quantity}}" name="quantity">
+        </div>
+        <input class="btn btn-sm"type="submit" value="Update Quantity">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" name="productId" value="{{product.id}}">
+      </form>
+      <form action="/cart" method="post" >
+        <input class="btn btn-sm btn-danger" type="submit" value="Remove from Cart">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" name="productId" value="{{product.id}}">
+        <input type="hidden" name="quantity" value="0">
+      </form>
+    </div>
+  </div>
+</div>
+
+{{/each}}
+<div class="row">
+  <div class="col-md-4 col-md-offset-3">
+    <h4>Total: {{total}}</h4>
+    <form method="post" action="/cart" style="display:inline-block">
+      <input type="submit" class="btn btn-danger" value="Clear Cart">
+      <input type="hidden" name="_method" value="delete">
+    </form>
+    <a href="/checkout">
+      <button class="btn btn-primary">Checkout</button
+    </a>
+  </div>
+</div>

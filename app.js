@@ -1,6 +1,13 @@
 const express = require('express');
 const app = express();
 const products = require('./routers/products');
+const checkout = require('./routers/checkout');
+const cart = require('./routers/cart');
+const charges = require('./routers/charges');
+const admin = require('./routers/admin');
+var mongoose = require("mongoose");
+
+
 
 // ----------------------------------------
 // App Variables
@@ -13,6 +20,11 @@ app.locals.appName = 'My App';
 // ----------------------------------------
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
+  var {
+    STRIPE_SK,
+    STRIPE_PK
+  } = process.env;
+  var stripe = require('stripe')(STRIPE_SK);
 }
 
 
@@ -37,6 +49,7 @@ app.use(cookieSession({
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  app.locals.cartSize = req.session.cart.length || 0;
   next();
 });
 
@@ -46,6 +59,14 @@ app.use((req, res, next) => {
 // ----------------------------------------
 const flash = require('express-flash-messages');
 app.use(flash());
+
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState) {
+    next();
+  } else {
+    require("./mongo")().then(() => next());
+  }
+});
 
 
 // ----------------------------------------
@@ -65,6 +86,8 @@ app.use(methodOverride(
 // ----------------------------------------
 app.use((req, res, next) => {
   req.session.backUrl = req.header('Referer') || '/';
+  req.session.cart = req.session.cart || [];
+  req.session.total = req.session.total || 0;
   next();
 });
 
@@ -90,6 +113,12 @@ app.use(morganToolkit());
 
 
 app.use('/products', products);
+app.use('/checkout', checkout);
+app.use('/cart', cart);
+app.use('/charges', charges);
+app.use('/admin', admin);
+
+
 
 app.use('/', (req, res) => {
   req.flash('Hi!');
