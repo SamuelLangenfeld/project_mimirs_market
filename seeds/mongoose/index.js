@@ -27,7 +27,7 @@ mongooseeder.seed({
     };
 
     let items = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       let item = {};
       item["name"] = faker.commerce.productName();
       item["sku"] = Number(faker.random.number());
@@ -44,7 +44,7 @@ mongooseeder.seed({
 
     var records = [];
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 100; i++) {
       //start with figuring out items ordered;
       //Outer Loop is where we make the order;
 
@@ -53,8 +53,8 @@ mongooseeder.seed({
       let revenue = 0;
       for (let i = 0; i < numItemTypes; i++) {
         let item = {};
-        Object.assign(item, items[Math.floor(Math.random() * 20)]);
-        let quantity = Math.floor(Math.random() * 3 + 1);
+        Object.assign(item, items[Math.floor(Math.random() * 30)]);
+        let quantity = Math.floor(Math.random() * 10 + 1);
         for (let n = 0; n < quantity; n++) {
           records.push(models.UnitSale.create(item));
         }

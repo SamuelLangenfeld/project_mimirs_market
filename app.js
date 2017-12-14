@@ -49,7 +49,7 @@ app.use(cookieSession({
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
-  app.locals.cartSize = req.session.cart.length || 0;
+  app.locals.cartSize = req.session.cart ? req.session.cart.length : 0;
   next();
 });
 
