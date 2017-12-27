@@ -1,70 +1,68 @@
-  <div class="row">
-    <div style="text-align:center">
+  <div style="text-align:center">
     <h1>{{product.name}}</h1>
-    </div>
-    <div class="col-md-4 col-md-offset-4">
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
       <div class="product-square">
-        <div>
-           <strong>Price: </strong>{{product.price}}
-        </div>
-        <div>
-           <strong>Description: </strong>{{product.description}}
-        </div>
-        <div>
-           <strong>Sku: </strong>{{product.sku}}
-        </div>
-        <div>
-           <strong>Category: </strong>{{product.CategoryId.name}}
-        </div>
-        <div class="">
-          <form action="/cart" method="post">
-            <div class="form-group">
-              <input type="hidden" name="productId" value="{{product.id}}">
-              <input class="form-control btn btn-primary" type="submit" value="Add To Cart">
-            </div>
-          </form>
+        <div class="product-info">
+          <div>
+             <strong>Price: </strong>{{product.price}}
+          </div>
+          <div>
+             <strong>Description: </strong>{{product.description}}
+          </div>
+          <div>
+             <strong>Sku: </strong>{{product.sku}}
+          </div>
+          <div>
+             <strong>Category: </strong>{{product.CategoryId.name}}
+          </div>
+          <div class="">
+            <form action="/cart" method="post">
+              <div class="form-group">
+                <input type="hidden" name="productId" value="{{product.id}}">
+                <button class="btn btn-primary" type="submit">Add to Cart</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <br>
-    <br>
-    <h3>Similar Products</h3>
-    {{#each arrays as |array|}}
+  <div style="text-align:center;">
+    <h2>Similar Products</h2>
+  </div>
 <div class="row">
-  {{#each array as |product|}}
+  {{#each similarProducts as |product|}}
   <div class="col-md-4">
     <div class="product-square">
-      <a href='/products/{{product.id}}'>
-        <div>
-          <strong>Name: </strong>{{product.name}}
-        </div>
-        <div>
-          <strong>Price: </strong>{{product.price}}
-        </div>
-        <div>
-          <strong>Description: </strong>{{product.description}}
-        </div>
-        <div>
-          <strong>Sku: </strong>{{product.sku}}
-        </div>
-        <div>
-          <strong>Category: </strong>{{product.CategoryId.name}}
-        </div>
-        
-      </a>
-      <form action="/cart" method="post">
-          <div class="form-group">
-            <input type="hidden" name="productId" value="{{product.id}}">
-            <input class="form-control btn btn-primary" type="submit" value="Add To Cart">
+      <div class="product-info">
+        <a href='/products/{{product.id}}'>
+          <div>
+            <strong>Name: </strong>{{product.name}}
           </div>
+          <div>
+            <strong>Price: </strong>{{product.price}}
+          </div>
+          <div>
+            <strong>Description: </strong>{{product.description}}
+          </div>
+          <div>
+            <strong>Sku: </strong>{{product.sku}}
+          </div>
+          <div>
+            <strong>Category: </strong>{{product.CategoryId.name}}
+          </div>
+        </a>
+        <form action="/cart" method="post">
+            <div class="form-group">
+              <input type="hidden" name="productId" value="{{product.id}}">
+              <button class="btn btn-primary" type="submit">Add to Cart</button>
+            </div>
         </form>
+      </div>
     </div>
   </div>
   {{/each}}
 </div>
-{{/each}}
-
-
 

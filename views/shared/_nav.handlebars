@@ -1,45 +1,31 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav-collapse" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
       <a class="navbar-brand" href="{{ rootPath }}">{{ appName }}</a>
-      <a class="navbar-brand" href="/products">Products</a>
-      <a class="navbar-brand" href="/cart">Shopping Cart ({{cartSize}})</a>
-      <a class="navbar-brand" href="/checkout">Checkout</a>
-      <a class="navbar-brand" href="/admin">Admin</a>
-      <a class="navbar-brand" href="/admin/analytics">Analytics</a>
-
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/products">Products<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-shopping-cart"></i>({{cart.length}})
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/cart">Cart</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item text-dark" href="/checkout">Checkout</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/admin"><i class="fas fa-tachometer-alt"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/admin/analytics"><i class="fas fa-calculator"></i></a>
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="main-nav-collapse">
-
-      {{!-- Nav Links Dropdown --}}
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            {{{ glyphicon "option-vertical" }}}
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="{{ rootPath }}">Link</a></li>
-          </ul>
-        </li>
-      </ul>
-
-      {{!-- Links --}}
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ rootPath }}">Link</a></li>
-      </ul>
-
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-
+  </nav>

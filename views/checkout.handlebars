@@ -1,6 +1,7 @@
 <h1>Checkout</h1>
 
 <div class="container">
+<div class="row">
   <div class="col-md-6">
     <h2 style="text-align:center">Billing Info</h2>
     <form id="checkoutForm" action="/checkout" method="post">
@@ -53,17 +54,15 @@
       </form>
     </div>
   </div>
+
+  <form action="/charges" method="post">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="{{ STRIPE_PK }}"
+      data-amount="100"
+      data-name="Stripe Node Test"
+      data-description="Widget"
+      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+      data-locale="auto"></script>
+  </form>
 </div>
-
-< !-- views/checkouts/new.handlebars -->
-
-<form action="/charges" method="post">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="{{ STRIPE_PK }}"
-    data-amount="100"
-    data-name="Stripe Node Test"
-    data-description="Widget"
-    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-    data-locale="auto"></script>
-</form>

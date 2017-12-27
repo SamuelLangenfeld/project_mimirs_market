@@ -16,7 +16,8 @@
     "mg:seed": "node seeds/mongoose",
     "console": "node repl.js",
     "c": "node repl.js",
-    "sql": "sequelize"
+    "sql": "sequelize",
+    "start": "node ./app.js"
   },
   "repository": {
     "type": "git",

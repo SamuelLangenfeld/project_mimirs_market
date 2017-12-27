@@ -1,4 +1,4 @@
-<h3 style="text-align:center">Products</h3>
+<h1 style="text-align:center">Products</h1>
 
 
 <div class='container'>
@@ -32,7 +32,7 @@
   <option value="800">800</option>
   <option value="1000">1000</option>
   </select>
-  <input class="float-right" value="Submit Filter" type="submit">
+  <input class="float-right" value="Filter Results" type="submit">
   </form>
  </div>
 </div>
@@ -48,42 +48,42 @@
   <option value="sortNewest">Sort By Newest First</option>
   <option value="sortOldest">Sort By Oldest First</option>
   </select>
-  <input class="float-right" value="Submit Sort By Filter" type="submit">
+  <input class="float-right" value="Sort Results" type="submit">
   </form>
  </div>
 </div>
 
 
-{{#each arrays as |array|}}
 <div class="row">
-  {{#each array as |product|}}
-  <div class="col-md-4">
+  {{#each products as |product|}}
+  <div class="col-md-4" >
     <div class="product-square">
-      <a href='/products/{{product.id}}'>
-        <div>
-          <strong>Name: </strong>{{product.name}}
-        </div>
-        <div>
-          <strong>Price: </strong>{{product.price}}
-        </div>
-        <div>
-          <strong>Description: </strong>{{product.description}}
-        </div>
-        <div>
-          <strong>Sku: </strong>{{product.sku}}
-        </div>
-        <div>
-          <strong>Category: </strong>{{product.CategoryId.name}}
-        </div>
-      </a>
-      <form action="/cart" method="post">
-          <div class="form-group">
-            <input type="hidden" name="productId" value="{{product.id}}">
-            <input class="form-control btn btn-primary" type="submit" value="Add To Cart">
+      <div class="product-info">
+        <a href='/products/{{product.id}}'>
+          <div>
+            <strong>Name: </strong>{{product.name}}
           </div>
+          <div>
+            <strong>Price: </strong>{{product.price}}
+          </div>
+          <div>
+            <strong>Description: </strong>{{product.description}}
+          </div>
+          <div>
+            <strong>Sku: </strong>{{product.sku}}
+          </div>
+          <div>
+            <strong>Category: </strong>{{product.CategoryId.name}}
+          </div>
+        </a>
+        <form action="/cart" method="post">
+            <div class="form-group">
+              <input type="hidden" name="productId" value="{{product.id}}">
+              <button class="btn btn-primary" type="submit">Add to Cart</button>
+            </div>
         </form>
+      </div>
     </div>
   </div>
   {{/each}}
 </div>
-{{/each}}

@@ -12,7 +12,7 @@ var mongoose = require("mongoose");
 // ----------------------------------------
 // App Variables
 // ----------------------------------------
-app.locals.appName = 'My App';
+app.locals.appName = `Mimir's Market`;
 
 
 // ----------------------------------------
@@ -49,7 +49,7 @@ app.use(cookieSession({
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
-  app.locals.cartSize = req.session.cart ? req.session.cart.length : 0;
+  app.locals.cart = req.session.cart ? req.session.cart : undefined;
   next();
 });
 

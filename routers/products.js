@@ -5,21 +5,11 @@ var Product = models.Product;
 var CategoryId = models.CategoryId;
 var sequelize = models.sequelize;
 
-const makeArraysOfThree = function(products) {
-  let arrays = [];
-  products.map((product, i) => {
-    arrays[Math.floor(i / 3)] = arrays[Math.floor(i / 3)] || [];
-    arrays[Math.floor(i / 3)][i % 3] = product;
-  });
-  return arrays;
-}
-
 router.get('/:productId', async function(req, res) {
   try {
     let product = await Product.findById(req.params.productId, { include: [{ model: CategoryId }] });
     let similarProducts = await Product.findAll({ include: [{ model: CategoryId }], where: { categoryId: product.categoryId, id: { $ne: product.id } } });
-    let arrays = makeArraysOfThree(similarProducts);
-    res.render('products/show', { product, arrays });
+    res.render('products/show', { product, similarProducts });
   } catch (e) {
     next();
   }
@@ -28,10 +18,7 @@ router.get('/:productId', async function(req, res) {
 router.get('/', async function(req, res) {
   try {
     let queryObj = {};
-    console.log("REQ.Query.maxPrice is " + req.query.maxPrice)
 
-
-    console.log("REQ.Query.minPrice is " + req.query.minPrice)
     if (req.query.minPrice) {
       queryObj["price"] = queryObj["price"] || {};
       queryObj["price"]["$gte"] = Number(req.query.minPrice)
@@ -89,8 +76,7 @@ router.get('/', async function(req, res) {
     categoriesAll.forEach((category) => {
       categories.push(category.name)
     })
-    let arrays = makeArraysOfThree(products);
-    res.render('products/index', { arrays, categories })
+    res.render('products/index', { products, categories })
   } catch (e) {
     console.error(e);
   }

@@ -1,101 +1,103 @@
 
-
 <h1 style="text-align:center;">Analytics</h1>
 
-<div class="col-md-3">
-<h3 style="text-align:center;">Totals</h3>
-<table class="table table-striped  table-bordered">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>Total Revenue Ever</td>
-      <td>{{totalRevenue.revenue}}</td>
-    </tr>
-    <tr>
-      <td>Total Units</td>
-      <td>{{totalUnits}}</td>
-    </tr>
-    <tr>
-      <td>Total Transactions</td>
-      <td>{{totalTransactions}}</td>
-    </tr>
-    <tr>
-      <td>Total Customers</td>
-      <td>{{totalCustomers}}</td>
-    </tr>
-    <tr>
-      <td>Total Products</td>
-      <td>{{totalProducts}}</td>
-    </tr>
-    <tr>
-      <td>Total Categories</td>
-      <td>{{totalCategories}}</td>
-    </tr>
-    <tr>
-      <td>Total States Sold To</td>
-      <td>{{totalStatesSoldTo}}</td>
-    </tr>
-  </thead>
-</table>
-</div>
+<div class="row">
+
+  <div class="col-sm-3">
+  <h3 style="text-align:center;">Totals</h3>
+  <table class="table table-striped  table-bordered">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Total Revenue Ever</td>
+        <td>{{totalRevenue.revenue}}</td>
+      </tr>
+      <tr>
+        <td>Total Units</td>
+        <td>{{totalUnits}}</td>
+      </tr>
+      <tr>
+        <td>Total Transactions</td>
+        <td>{{totalTransactions}}</td>
+      </tr>
+      <tr>
+        <td>Total Customers</td>
+        <td>{{totalCustomers}}</td>
+      </tr>
+      <tr>
+        <td>Total Products</td>
+        <td>{{totalProducts}}</td>
+      </tr>
+      <tr>
+        <td>Total Categories</td>
+        <td>{{totalCategories}}</td>
+      </tr>
+      <tr>
+        <td>Total States Sold To</td>
+        <td>{{totalStatesSoldTo}}</td>
+      </tr>
+    </thead>
+  </table>
+  </div>
 
 
 
-<div class="col-md-3">
-<h3 style="text-align:center;">Revenue by State</h3>
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  {{#each stateRevenues as |stateRevenue|}}
-    <tr>
-      <td>{{stateRevenue._id}}</td>
-      <td>{{stateRevenue.revenue}}</td>
-    </tr>
-  {{/each}}
-</table>
-</div>
+  <div class="col-sm-3">
+  <h3 style="text-align:center;">Revenue by State</h3>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    {{#each stateRevenues as |stateRevenue|}}
+      <tr>
+        <td>{{stateRevenue._id}}</td>
+        <td>{{stateRevenue.revenue}}</td>
+      </tr>
+    {{/each}}
+  </table>
+  </div>
 
-<div class="col-md-3">
-<h3 style="text-align:center;">Revenue by Product</h3>
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  {{#each productRevenues as |productRevenue|}}
-    <tr>
-      <td>{{productRevenue._id}}</td>
-      <td>{{productRevenue.revenue}}</td>
-    </tr>
-  {{/each}}
-</table>
-</div>
+  <div class="col-sm-3">
+  <h3 style="text-align:center;">Revenue by Product</h3>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    {{#each productRevenues as |productRevenue|}}
+      <tr>
+        <td>{{productRevenue._id}}</td>
+        <td>{{productRevenue.revenue}}</td>
+      </tr>
+    {{/each}}
+  </table>
+  </div>
 
-<div class="col-md-3">
-<h3 style="text-align:center;">Revenue by Categories</h3>
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  {{#each categoryRevenues as |categoryRevenue|}}
-    <tr>
-      <td>{{categoryRevenue._id}}</td>
-      <td>{{categoryRevenue.revenue}}</td>
-    </tr>
-  {{/each}}
-</table>
+  <div class="col-sm-3">
+  <h3 style="text-align:center;">Revenue by Categories</h3>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    {{#each categoryRevenues as |categoryRevenue|}}
+      <tr>
+        <td>{{categoryRevenue._id}}</td>
+        <td>{{categoryRevenue.revenue}}</td>
+      </tr>
+    {{/each}}
+  </table>
+  </div>
 </div>
 
 
