@@ -71,7 +71,7 @@ mongooseeder.seed({
       order["fname"] = faker.name.firstName();
       order["lname"] = faker.name.lastName();
       order["revenue"] = revenue;
-      order["stripeToken"] = "RANDO TOKEN";
+      order["stripeToken"] = faker.finance.bitcoinAddress();
       order["street"] = faker.address.streetAddress();
       order["city"] = faker.address.city()
       order["state"] = faker.address.stateAbbr();

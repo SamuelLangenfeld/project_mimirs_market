@@ -1,34 +1,32 @@
-<h1>Checkout</h1>
+<h1 class="centered">Checkout</h1>
 
 <div class="container">
 <div class="row">
   <div class="col-md-6">
     <h2 style="text-align:center">Billing Info</h2>
-    <form id="checkoutForm" action="/checkout" method="post">
       <div class="form-group">
-      <label>First Name: </label><input class="form-control" type="text" name="fname">
+      <label>First Name: </label><input class="form-control" type="text" name="fname" form="checkoutForm" >
       </div>
       <div class="form-group">
-      <label>Last Name: </label><input class="form-control" type="text" name="lname">
+      <label>Last Name: </label><input class="form-control" type="text" name="lname" form="checkoutForm">
       </div>
       <div class="form-group">
-      <label>Email: </label><input class="form-control" type="text" name="email">
+      <label>Email: </label><input class="form-control" type="text" name="email" form="checkoutForm">
       </div>
       <h4>Address</h4>
       <div class="form-group">
-      <label>Street: </label><input class="form-control" type="text" name="street">
+      <label>Street: </label><input class="form-control" type="text" name="street" form="checkoutForm">
       </div>
       <div class="form-group">
-      <label>City: </label><input class="form-control" type="text" name="city">
+      <label>City: </label><input class="form-control" type="text" name="city" form="checkoutForm">
       </div>
       <div class="form-group">
-      <labe>State: </label><select name="state" class="form-control" >
+      <label>State: </label><select name="state" class="form-control" form="checkoutForm">
         {{#each states as |state|}}
-        <option value="{{state.id}}">{{state.name}}</option>
+        <option value="{{state.name}}">{{state.name}}</option>
         {{/each}}
       </select>
       </div>
-    </form>
   </div>
 
 
@@ -43,26 +41,23 @@
       </div>
     {{/each}}
     <div>
-      <h4>Total: {{total}}</h4>
+      <h4>Total: ${{total}}</h4>
     </div>
     <div>
       <a href="/cart">
         <button class="btn btn-danger" style="display:inline-block">Return to Cart</button>
       </a>
-      <form style="display:inline-block;" action="/payment" method="post">
-        <input class="btn btn-primary" form="checkoutForm" type="submit" value="Submit Payment">
+      <form id="checkoutForm" action="/checkout" method="post" style="display:inline-block">
+        <input type="hidden" name="revenue" value="{{total}}">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="{{ STRIPE_PK }}"
+          data-amount="{{total}}00"
+          data-name="Stripe Node Test"
+          data-description="Widget"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto"></script>
       </form>
     </div>
   </div>
-
-  <form action="/charges" method="post">
-    <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="{{ STRIPE_PK }}"
-      data-amount="100"
-      data-name="Stripe Node Test"
-      data-description="Widget"
-      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-      data-locale="auto"></script>
-  </form>
 </div>

@@ -12,7 +12,8 @@ module.exports = {
         sku: faker.random.number(),
         price: faker.commerce.price(),
         description: faker.commerce.product(),
-        categoryId: Math.random() * 4 + 1
+        categoryId: Math.random() * 4 + 1,
+        image: "http://via.placeholder.com/300x200"
       });
     }
     return queryInterface.bulkInsert('Products', products);

@@ -17,7 +17,8 @@
     "console": "node repl.js",
     "c": "node repl.js",
     "sql": "sequelize",
-    "start": "node ./app.js"
+    "start": "node ./app.js",
+    "seed": "npm run sql:s && npm run mg:seed"
   },
   "repository": {
     "type": "git",

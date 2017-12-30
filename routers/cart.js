@@ -3,11 +3,9 @@ var router = express.Router();
 var models = require('../models/sequelize');
 var Product = models.Product;
 var CategoryId = models.CategoryId;
-var sequelize = models.sequelize;
 
 router.get('/', async function(req, res) {
   let cart = req.session.cart;
-  console.log(req.sesio)
   let total = req.session.total;
   res.render('cart', { cart, total });
 });
@@ -50,13 +48,19 @@ router.post('/', async function(req, res) {
   try {
     let product = await Product.findById(req.body.productId, { include: [{ model: CategoryId }] });
     let cart = req.session.cart;
-    cart.forEach(cartItem => {
-      if (product.id == cartItem.id) {
-        res.render('cart', { cart });
-        next();
+
+    let newItem = true;
+    cart.forEach(item => {
+      if (item.id === product.id) {
+        newItem = false;
       }
-    });
-    cart.push({ id: product.id, price: product.price, quantity: 1, name: product.name, description: product.description, sku: product.sku });
+    })
+
+    if (!newItem) {
+      return res.render('cart', { cart, total: req.session.total });
+    }
+
+    cart.push({ ...product.dataValues, quantity: 1 });
     let total = 0;
     cart.forEach(item => {
       total += item.price * item.quantity;
@@ -64,7 +68,7 @@ router.post('/', async function(req, res) {
     req.session.total = total;
     res.render('cart', { cart, total });
   } catch (e) {
-    next();
+    console.error(e);
   }
 });
 

@@ -3,7 +3,6 @@ const app = express();
 const products = require('./routers/products');
 const checkout = require('./routers/checkout');
 const cart = require('./routers/cart');
-const charges = require('./routers/charges');
 const admin = require('./routers/admin');
 var mongoose = require("mongoose");
 
@@ -115,7 +114,6 @@ app.use(morganToolkit());
 app.use('/products', products);
 app.use('/checkout', checkout);
 app.use('/cart', cart);
-app.use('/charges', charges);
 app.use('/admin', admin);
 
 
@@ -133,7 +131,20 @@ const expressHandlebars = require('express-handlebars');
 const helpers = require('./helpers');
 
 const hbs = expressHandlebars.create({
-  helpers: helpers,
+  helpers: { ...helpers,
+    inCart: (cart, product) => {
+      if (!cart) {
+        return false;
+      }
+      let found = false;
+      cart.forEach(item => {
+        if (item.sku === product.sku) {
+          found = true;
+        }
+      })
+      return found;
+    }
+  },
   partialsDir: 'views/',
   defaultLayout: 'application'
 });

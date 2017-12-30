@@ -11,12 +11,13 @@ router.get('/:productId', async function(req, res) {
     let similarProducts = await Product.findAll({ include: [{ model: CategoryId }], where: { categoryId: product.categoryId, id: { $ne: product.id } } });
     res.render('products/show', { product, similarProducts });
   } catch (e) {
-    next();
+    console.error(e);
   }
 });
 
 router.get('/', async function(req, res) {
   try {
+
     let queryObj = {};
 
     if (req.query.minPrice) {
@@ -30,6 +31,7 @@ router.get('/', async function(req, res) {
     }
 
     let categoryQueryObj = {};
+
     if (req.query.category) {
       categoryQueryObj["name"] = req.query.category;
     }
@@ -62,13 +64,10 @@ router.get('/', async function(req, res) {
       sort = ['price', 'DESC']
     }
 
-    let search = "%"
     if (req.query.search) {
-      search = `%${req.query.search}%`;
+      let search = `%${req.query.search}%`;
+      queryObj["name"] = { '$iLike': search };
     }
-    queryObj["name"] = { '$iLike': search };
-
-    console.log("Search is " + search);
 
     let products = await Product.findAll({ order: [sort], where: queryObj, include: [{ model: CategoryId, where: categoryQueryObj }] });
     let categoriesAll = await CategoryId.findAll();

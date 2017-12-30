@@ -1,9 +1,10 @@
-<h1 style="text-align:center">Admin Orders Index</h1>
+<h1 class="centered">Admin Orders Index</h1>
 
 <div class="container">
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Date</th>
         <th>Revenue</th>
         <th>Email</th>
@@ -12,16 +13,14 @@
       </tr>
     </thead>
     {{#each orders as |order|}}
-      
-        <tr>
-        
-          <td><a href="admin/{{order.id}}">{{order.createdAt}}</a></td>
-          <td>${{order.revenue}}</td>
-          <td>{{order.email}}</td>
-          <td>{{order.stripeToken}}</td>
-          <td>{{order.state}}</td>
-        </tr>
-     
+      <tr> 
+        <td><a href="admin/{{order.id}}">{{order.id}}</a></td>       
+        <td>{{order.createdAt}}</td>
+        <td>${{order.revenue}}</td>
+        <td>{{order.email}}</td>
+        <td>{{order.stripeToken}}</td>
+        <td>{{order.state}}</td>
+      </tr>     
     {{/each}}
   </table>
 </div>

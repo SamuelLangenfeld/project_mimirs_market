@@ -86,7 +86,7 @@ router.get('/:orderId', async function(req, res) {
 
 router.get('/', async function(req, res) {
   try {
-    let orders = await Order.find().limit(10);
+    let orders = await Order.find({}).sort({ createdAt: -1 }).limit(20);
     res.render('admin/ordersIndex', { orders });
   } catch (e) {
     console.error(e);

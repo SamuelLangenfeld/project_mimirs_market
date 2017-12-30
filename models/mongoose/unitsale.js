@@ -7,7 +7,6 @@ var UnitSaleSchema = new Schema({
   sku: Number,
   price: Number,
   category: String
-
 }, {
   timestamps: true
 });

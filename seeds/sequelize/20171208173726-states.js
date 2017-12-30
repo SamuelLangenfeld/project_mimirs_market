@@ -4,15 +4,6 @@ var models = require("../../models/sequelize");
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    /*
-    var states = [];
-    for (let i = 0; i < 20; i++) {
-      users.push({
-        username: faker.internet.userName(),
-        email: faker.internet.email()
-      });
-    }
-    */
 
     let states = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA",
       "ID",
@@ -64,7 +55,6 @@ module.exports = {
         updatedAt: (new Date())
       });
     });
-    console.log(statesArray);
     return queryInterface.bulkInsert("States", statesArray);
   },
 

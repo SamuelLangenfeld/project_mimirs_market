@@ -1,89 +1,99 @@
-<h1 style="text-align:center">Products</h1>
+<h1 class="centered">Products</h1>
 
 
 <div class='container'>
-<div class="from-group row">
-<form class="search" method="get" action="/products">
-<input type="text" class="form-control" placeholder="Search" name="search">
-<input class="float-right" value="Submit Search" type="submit">
-</form>
-</div>
- <div class='row'>
-  <form class="form-control" action='/products/' method="get">  
-  <select name="category">
-  <option value="">Filter By Category</option> 
-  {{#each categories as |category|}}
-  <option value="{{category}}">{{category}}</option> 
-  {{/each}}
-  </select>
-  <select name="minPrice">
-  <option value="">Min Price</option> 
-  <option value="200">200</option> 
-  <option value="400">400</option>
-  <option value="600">600</option>
-  <option value="800">800</option>
-  <option value="1000">1000</option>
-  </select>
-  <select name="maxPrice">
-  <option value="">Max Price</option> 
-  <option value="200">200</option> 
-  <option value="400">400</option>
-  <option value="600">600</option>
-  <option value="800">800</option>
-  <option value="1000">1000</option>
-  </select>
-  <input class="float-right" value="Filter Results" type="submit">
-  </form>
- </div>
-</div>
-<div class='container'>
- <div class='row'>
-  <form class="form-control" action='/products' method="get">
-  
-  <select name="sort">
-  <option value="sortNameAscend">Sort By Name Ascending</option> 
-  <option value="sortNameDescend">Sort By Name Descending</option> 
-  <option value="sortPriceAscend">Sort By Price Ascending</option>
-  <option value="sortPriceDescend">Sort By Price Descending</option>
-  <option value="sortNewest">Sort By Newest First</option>
-  <option value="sortOldest">Sort By Oldest First</option>
-  </select>
-  <input class="float-right" value="Sort Results" type="submit">
-  </form>
- </div>
-</div>
-
-
-<div class="row">
-  {{#each products as |product|}}
-  <div class="col-md-4" >
-    <div class="product-square">
-      <div class="product-info">
-        <a href='/products/{{product.id}}'>
-          <div>
-            <strong>Name: </strong>{{product.name}}
-          </div>
-          <div>
-            <strong>Price: </strong>{{product.price}}
-          </div>
-          <div>
-            <strong>Description: </strong>{{product.description}}
-          </div>
-          <div>
-            <strong>Sku: </strong>{{product.sku}}
-          </div>
-          <div>
-            <strong>Category: </strong>{{product.CategoryId.name}}
-          </div>
-        </a>
-        <form action="/cart" method="post">
-            <div class="form-group">
-              <input type="hidden" name="productId" value="{{product.id}}">
-              <button class="btn btn-primary" type="submit">Add to Cart</button>
-            </div>
+  <div class="row">
+    <div class="col-md-6 offset-3">
+      <div class="row">
+        <form class="form-inline search-row" method="get" action="/products">
+          <input id="search-bar" type="text" class="form-control" name="search">
+          <input class="btn btn-primary ml-auto" value="Submit Search" type="submit">
+        </form>
+      </div>
+      <div class='row'>
+        <form class="form-inline search-row" action='/products/' method="get">
+          <select class="form-control mr-3" name="category">
+          <option value="">Category</option> 
+          {{#each categories as |category|}}
+          <option value="{{category}}">{{category}}</option> 
+          {{/each}}
+          </select>
+          <select  class="form-control mr-3" name="minPrice">
+          <option value="">Min Price</option> 
+          <option value="200">200</option> 
+          <option value="400">400</option>
+          <option value="600">600</option>
+          <option value="800">800</option>
+          <option value="1000">1000</option>
+          </select>
+          <select  class="form-control" name="maxPrice">
+          <option value="">Max Price</option> 
+          <option value="200">200</option> 
+          <option value="400">400</option>
+          <option value="600">600</option>
+          <option value="800">800</option>
+          <option value="1000">1000</option>
+          </select>
+          <input class="btn btn-primary ml-auto" value="Filter Products" type="submit">
+        </form>
+      </div>
+      <div class='row'>
+        <form class="form-inline search-row" action='/products' method="get">    
+          <select name="sort" class="form-control">
+          <option value="sortNameAscend">Sort By Name Ascending</option> 
+          <option value="sortNameDescend">Sort By Name Descending</option> 
+          <option value="sortPriceAscend">Sort By Price Ascending</option>
+          <option value="sortPriceDescend">Sort By Price Descending</option>
+          <option value="sortNewest">Sort By Newest First</option>
+          <option value="sortOldest">Sort By Oldest First</option>
+          </select>
+          <input class="btn btn-primary ml-auto" value="Sort Products" type="submit">
         </form>
       </div>
     </div>
+
   </div>
-  {{/each}}
+
+
+  <div class="row">
+    {{#each products as |product|}}
+    <div class="col-md-4" >
+      <div class="product-square">
+        <div class="product-info">
+          <div class="product-image">
+            <img src="{{product.image}}">
+          </div>
+
+          <div class="product-description">
+            <a href='/products/{{product.id}}'>
+              <div>
+                <strong>{{product.name}}</strong>
+              </div>
+            </a>
+            <div>
+              ${{product.price}}
+            </div>
+            <div>
+              <a href="/products/?category={{CategoryId.name}}">{{product.CategoryId.name}}</a>
+            </div>
+          </div>
+          {{#if (inCart ../cart product)}}
+            <div class="form-group">
+              <a href="/cart">
+                <button class="btn btn-success" type="submit">Edit in Cart</button>
+              </a>
+            </div>
+          {{else}}
+            <form action="/cart" method="post">
+                <div class="form-group">
+                  <input type="hidden" name="productId" value="{{product.id}}">
+                  <button class="btn btn-primary" type="submit">Add to Cart</button>
+                </div>
+            </form>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </div>

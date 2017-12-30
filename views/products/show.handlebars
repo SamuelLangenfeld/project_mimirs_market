@@ -1,65 +1,88 @@
-  <div style="text-align:center">
+  <div class="centered">
     <h1>{{product.name}}</h1>
   </div>
   <div class="row">
     <div class="col-md-4 offset-md-4">
       <div class="product-square">
         <div class="product-info">
-          <div>
-             <strong>Price: </strong>{{product.price}}
+          <div class="product-image">
+            <img src="{{product.image}}">
           </div>
-          <div>
-             <strong>Description: </strong>{{product.description}}
+          <div class="product-description">
+            <div>
+               <strong>Price: </strong>${{product.price}}
+            </div>
+            <div>
+               <strong>Description: </strong>{{product.description}}
+            </div>
+            <div>
+               <strong>Sku: </strong>{{product.sku}}
+            </div>
+            
+            <div>
+              <strong>Category: </strong><a href="/products/?category={{product.CategoryId.name}}">{{product.CategoryId.name}}</a>
+            </div>
           </div>
-          <div>
-             <strong>Sku: </strong>{{product.sku}}
-          </div>
-          <div>
-             <strong>Category: </strong>{{product.CategoryId.name}}
-          </div>
-          <div class="">
+          {{#if (inCart cart product)}}
+            <div class="form-group">
+              <a href="/cart">
+                <button class="btn btn-success" type="submit">Edit in Cart</button>
+              </a>
+            </div>
+          {{else}}
             <form action="/cart" method="post">
-              <div class="form-group">
-                <input type="hidden" name="productId" value="{{product.id}}">
-                <button class="btn btn-primary" type="submit">Add to Cart</button>
-              </div>
+                <div class="form-group">
+                  <input type="hidden" name="productId" value="{{product.id}}">
+                  <button class="btn btn-primary" type="submit">Add to Cart</button>
+                </div>
             </form>
+          {{/if}}
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div style="text-align:center;">
+  <div class="centered">
     <h2>Similar Products</h2>
   </div>
 <div class="row">
   {{#each similarProducts as |product|}}
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="product-square">
       <div class="product-info">
-        <a href='/products/{{product.id}}'>
-          <div>
-            <strong>Name: </strong>{{product.name}}
-          </div>
-          <div>
-            <strong>Price: </strong>{{product.price}}
-          </div>
-          <div>
-            <strong>Description: </strong>{{product.description}}
-          </div>
-          <div>
-            <strong>Sku: </strong>{{product.sku}}
-          </div>
-          <div>
-            <strong>Category: </strong>{{product.CategoryId.name}}
-          </div>
-        </a>
-        <form action="/cart" method="post">
-            <div class="form-group">
-              <input type="hidden" name="productId" value="{{product.id}}">
-              <button class="btn btn-primary" type="submit">Add to Cart</button>
+        <div class="product-image">
+          <img src="{{product.image}}">
+        </div>
+        <div class="product-description">
+          <a href='/products/{{product.id}}'>
+            <div>
+              <strong>{{product.name}}</strong>
             </div>
-        </form>
+          </a>
+          <div>
+            ${{product.price}}
+          </div>
+          <a href="/products/?category={{product.CategoryId.name}}">
+            <div>
+              {{product.CategoryId.name}}
+            </div>
+          </a>
+        </div>
+
+        {{#if (inCart ../cart product)}}
+          <div class="form-group">
+            <a href="/cart">
+              <button class="btn btn-success" type="submit">Edit in Cart</button>
+            </a>
+          </div>
+        {{else}}
+          <form action="/cart" method="post">
+              <div class="form-group">
+                <input type="hidden" name="productId" value="{{product.id}}">
+                <button class="btn btn-primary" type="submit">Add to Cart</button>
+              </div>
+          </form>
+        {{/if}}
       </div>
     </div>
   </div>

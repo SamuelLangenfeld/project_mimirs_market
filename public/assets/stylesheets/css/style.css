@@ -2,6 +2,9 @@
   border: 1px solid black;
   padding: 1px;
   margin: 1px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: auto;
 }
 
 .navbar-brand {
@@ -17,10 +20,36 @@
 }
 
 .product-info {
-  margin-left: 20px;
   margin-top: 10px;
+  text-align: center;
 }
 
 .navbar {
   margin-bottom: 20px;
+}
+
+.product-image {
+  margin-bottom: 20px;
+}
+
+.product-image img {
+  max-width: 95%;
+}
+
+.product-description {
+  margin-bottom: 20px;
+}
+
+.centered {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.search-row {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+#search-bar {
+  width: 230px;
 }
