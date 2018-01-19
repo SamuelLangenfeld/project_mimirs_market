@@ -1,61 +1,9 @@
-# project_mimirs_market
-A Viking eCommerce store for Thunder Gods that like to buy "Antique Wooden Pizzas"
+# Mimirs Market
 
+An eCommerce store for Viking thunder Gods that like to buy "Antique Wooden Pizzas". 
 
-SQL Sequelize Models
-  Product
-    name:String
-    sku:Integer
-    description:string
-    categoryId: foreign key, int
-    price:number
+Mimirs Market is an eCommerce store that lets users browse products by searching or category, view their shopping cart, view past orders, and view analytics of all orders. When you're ready to checkout, you can use [Stripe's API](https://stripe.com/docs/api) to make a fake purchase. 
 
-  Category
-    name:string
+Mimir's Market runs in Node.js, using Express.js for the server, Handlebars templates for the views, and Mongoose and Sequelize for interacting with MongoDB and Postgres databases respectively.
 
-  User
-    username:string
-    email:string
-
-
-NoSQL mongoose models
-  Order
-    items: [
-            {productId:objectId, productName: string, price:number, category:string, quantity:number, productSku:number, quantity:number}
-          ]
-    date: time
-    StripeToken: string
-    creditCard: string("visa")
-    revenue: number
-    user: fname
-          lname
-          email
-          username
-          street
-          city
-    state: string
-
-  UnitSale
-    sku:number
-    name:string
-    price:number
-    category:string
-
-
-NOSQL
-
-Need to view previous orders. These have a list of products and a user.
-Need to see Totals for
-  -all revenue ever
-  -number of units sold ever
-  -total number of orders ever
-  -total unique customers
-  -total unique products
-  -total unique categories
-  -total unique states withn an order
-
-
-Need to break down total Revenue
-  by product
-  by state
-  by category
+To run this project locally, make sure you have both MongoDB and Postgres installed and running on your local machine.You'll also need two API keys from stripe, a secret one and a test one. Save them as STRIPE_PK and STRIPE_SK in your environment variables. You'll need to modify the configuration files in the Config folder to give the project access to your postgres database.
