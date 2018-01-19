@@ -13,7 +13,7 @@
       </thead>
       <tr>
         <td>Total Revenue Ever</td>
-        <td>{{totalRevenue.revenue}}</td>
+        <td>{{#formatMoney totalRevenue.revenue}}{{/formatMoney}}</td>
       </tr>
       <tr>
         <td>Total Units</td>
@@ -54,7 +54,7 @@
     {{#each categoryRevenues as |categoryRevenue|}}
       <tr>
         <td>{{categoryRevenue._id}}</td>
-        <td>{{categoryRevenue.revenue}}</td>
+        <td>{{#formatMoney categoryRevenue.revenue}}{{/formatMoney}}</td>
       </tr>
     {{/each}}
   </table>
@@ -72,7 +72,7 @@
     {{#each stateRevenues as |stateRevenue|}}
       <tr>
         <td>{{stateRevenue._id}}</td>
-        <td>{{stateRevenue.revenue}}</td>
+        <td>{{#formatMoney stateRevenue.revenue}}{{/formatMoney}}</td>
       </tr>
     {{/each}}
   </table>
@@ -90,7 +90,7 @@
     {{#each productRevenues as |productRevenue|}}
       <tr>
         <td>{{productRevenue._id}}</td>
-        <td>{{productRevenue.revenue}}</td>
+        <td>{{#formatMoney productRevenue.revenue}}{{/formatMoney}}</td>
       </tr>
     {{/each}}
   </table>

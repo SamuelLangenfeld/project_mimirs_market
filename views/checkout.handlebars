@@ -2,62 +2,66 @@
 
 <div class="container">
 <div class="row">
-  <div class="col-md-6">
-    <h2 style="text-align:center">Billing Info</h2>
-      <div class="form-group">
-      <label>First Name: </label><input class="form-control" type="text" name="fname" form="checkoutForm" >
-      </div>
-      <div class="form-group">
-      <label>Last Name: </label><input class="form-control" type="text" name="lname" form="checkoutForm">
-      </div>
-      <div class="form-group">
-      <label>Email: </label><input class="form-control" type="text" name="email" form="checkoutForm">
-      </div>
-      <h4>Address</h4>
-      <div class="form-group">
-      <label>Street: </label><input class="form-control" type="text" name="street" form="checkoutForm">
-      </div>
-      <div class="form-group">
-      <label>City: </label><input class="form-control" type="text" name="city" form="checkoutForm">
-      </div>
-      <div class="form-group">
-      <label>State: </label><select name="state" class="form-control" form="checkoutForm">
-        {{#each states as |state|}}
-        <option value="{{state.name}}">{{state.name}}</option>
-        {{/each}}
-      </select>
-      </div>
-  </div>
-
-
-
-  <div class="col-md-6">
-    <h2 style="text-align:center">Order Items</h2>
-    {{#each cart as |product|}}
-      <div>
-        <div class="product-square" style="display:inline-block">
-          <p>{{product.name}} ${{product.price}} x {{product.quantity}} = ${{product.subTotal}}</p>
+  {{#if cart}}
+    <div class="col-md-6">
+      <h2 style="text-align:center">Billing Info</h2>
+        <div class="form-group">
+        <label>First Name: </label><input class="form-control" type="text" name="fname" form="checkoutForm" >
         </div>
+        <div class="form-group">
+        <label>Last Name: </label><input class="form-control" type="text" name="lname" form="checkoutForm">
+        </div>
+        <div class="form-group">
+        <label>Email: </label><input class="form-control" type="text" name="email" form="checkoutForm" required="true">
+        </div>
+        <h4>Address</h4>
+        <div class="form-group">
+        <label>Street: </label><input class="form-control" type="text" name="street" form="checkoutForm">
+        </div>
+        <div class="form-group">
+        <label>City: </label><input class="form-control" type="text" name="city" form="checkoutForm">
+        </div>
+        <div class="form-group">
+        <label>State: </label><select name="state" class="form-control" form="checkoutForm">
+          {{#each states as |state|}}
+          <option value="{{state.name}}">{{state.name}}</option>
+          {{/each}}
+        </select>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+      <h2 style="text-align:center">Order Items</h2>
+      {{#each cart as |product|}}
+        <div>
+          <div class="product-square" style="display:inline-block;padding:10px">
+            {{product.name}} ${{product.price}} x {{product.quantity}} = ${{product.subTotal}}
+          </div>
+        </div>
+      {{/each}}
+      <div>
+        <h4>Total: {{#formatMoney total}}{{/formatMoney}}</h4>
       </div>
-    {{/each}}
-    <div>
-      <h4>Total: ${{total}}</h4>
+      <div>
+        <a href="/cart">
+          <button class="btn btn-danger" style="display:inline-block">Return to Cart</button>
+        </a>
+        <form id="checkoutForm" action="/checkout" method="post" style="display:inline-block">
+          <input type="hidden" name="revenue" value="{{total}}">
+          <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ STRIPE_PK }}"
+            data-amount="{{total}}00"
+            data-name="Stripe Node Test"
+            data-description="Widget"
+            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+            data-locale="auto"></script>
+        </form>
+      </div>
     </div>
-    <div>
-      <a href="/cart">
-        <button class="btn btn-danger" style="display:inline-block">Return to Cart</button>
-      </a>
-      <form id="checkoutForm" action="/checkout" method="post" style="display:inline-block">
-        <input type="hidden" name="revenue" value="{{total}}">
-        <script
-          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="{{ STRIPE_PK }}"
-          data-amount="{{total}}00"
-          data-name="Stripe Node Test"
-          data-description="Widget"
-          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-          data-locale="auto"></script>
-      </form>
-    </div>
-  </div>
+  {{else}}
+    <h3>Your cart is empty. Don't you love all of these fake products? Shop til ya drop baby!</h3>
+  {{/if}}
 </div>

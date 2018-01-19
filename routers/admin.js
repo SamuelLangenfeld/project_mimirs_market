@@ -1,45 +1,69 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
 var models = require("./../models/mongoose");
 var Order = mongoose.model("Order");
 var UnitSale = mongoose.model("UnitSale");
 
-
-router.get('/analytics', async(req, res) => {
+router.get("/analytics", async (req, res) => {
   try {
     let analyticsInfo = [];
 
-    analyticsInfo.push(Order.aggregate({ $group: { _id: '$state', revenue: { $sum: '$revenue' } } }, { $sort: { _id: 1 } }))
-    analyticsInfo.push(Order.aggregate([
-      { $group: { _id: null, revenue: { $sum: '$revenue' } } }
-    ]))
-    analyticsInfo.push(UnitSale.aggregate([
-      { $group: { _id: '$category', revenue: { $sum: '$price' } } },
-      { $sort: { _id: 1 } }
-    ]))
-    analyticsInfo.push(UnitSale.aggregate([
-      { $group: { _id: '$name', revenue: { $sum: '$price' } } },
-      { $sort: { _id: 1 } }
-    ]))
+    analyticsInfo.push(
+      Order.aggregate(
+        { $group: { _id: "$state", revenue: { $sum: "$revenue" } } },
+        { $sort: { _id: 1 } }
+      )
+    );
+    analyticsInfo.push(
+      Order.aggregate([
+        { $group: { _id: null, revenue: { $sum: "$revenue" } } }
+      ])
+    );
+    analyticsInfo.push(
+      UnitSale.aggregate([
+        { $group: { _id: "$category", revenue: { $sum: "$price" } } },
+        { $sort: { _id: 1 } }
+      ])
+    );
+    analyticsInfo.push(
+      UnitSale.aggregate([
+        { $group: { _id: "$name", revenue: { $sum: "$price" } } },
+        { $sort: { _id: 1 } }
+      ])
+    );
     analyticsInfo.push(UnitSale.count());
     analyticsInfo.push(Order.count());
-    analyticsInfo.push(Order.aggregate([{
-      $group: { _id: '$email' }
-    }]));
-    analyticsInfo.push(UnitSale.aggregate([{
-      $group: { _id: '$name' }
-    }]));
-    analyticsInfo.push(UnitSale.aggregate([{
-      $group: { _id: '$category' }
-    }]));
-    analyticsInfo.push(Order.aggregate([{
-      $group: { _id: '$state' }
-    }]));
+    analyticsInfo.push(
+      Order.aggregate([
+        {
+          $group: { _id: "$email" }
+        }
+      ])
+    );
+    analyticsInfo.push(
+      UnitSale.aggregate([
+        {
+          $group: { _id: "$name" }
+        }
+      ])
+    );
+    analyticsInfo.push(
+      UnitSale.aggregate([
+        {
+          $group: { _id: "$category" }
+        }
+      ])
+    );
+    analyticsInfo.push(
+      Order.aggregate([
+        {
+          $group: { _id: "$state" }
+        }
+      ])
+    );
 
-
-    analyticsInfo = await Promise.all(analyticsInfo)
-
+    analyticsInfo = await Promise.all(analyticsInfo);
 
     let stateRevenues = analyticsInfo[0];
     let totalRevenue = analyticsInfo[1][0];
@@ -52,8 +76,7 @@ router.get('/analytics', async(req, res) => {
     let totalCategories = analyticsInfo[8].length;
     let totalStatesSoldTo = analyticsInfo[9].length;
 
-
-    res.render('admin/analytics', {
+    res.render("admin/analytics", {
       stateRevenues,
       totalRevenue,
       categoryRevenues,
@@ -67,30 +90,29 @@ router.get('/analytics', async(req, res) => {
     });
   } catch (e) {
     console.error(e);
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-
-router.get('/:orderId', async function(req, res) {
+router.get("/:orderId", async function(req, res) {
   try {
     let order = await Order.findById(req.params.orderId);
-    res.render('admin/orderShow', { order });
+    res.render("admin/orderShow", { order });
   } catch (e) {
     console.error(e);
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-
-
-router.get('/', async function(req, res) {
+router.get("/", async function(req, res) {
   try {
-    let orders = await Order.find({}).sort({ createdAt: -1 }).limit(20);
-    res.render('admin/ordersIndex', { orders });
+    let orders = await Order.find({})
+      .sort({ createdAt: -1 })
+      .limit(20);
+    res.render("admin/ordersIndex", { orders });
   } catch (e) {
     console.error(e);
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
