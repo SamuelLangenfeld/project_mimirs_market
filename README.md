@@ -12,7 +12,7 @@ The Products page lets shoppers search by name, category, and price. They can al
 
 The Admin page lets you see information on the latest orders, and gives you a link to each order.
 
-![orders screenshot](public/orders.png)
+![orders screenshot](public/orders_index.png)
 
 The Analytics page gives a rundown on the aggregate totals for revnue, units sold, individual transactions, etc, as well as total revenue broken down by state, product category, and individual products.
 
