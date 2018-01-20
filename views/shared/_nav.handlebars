@@ -7,9 +7,9 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link text-dark" href="/products">Products<span class="sr-only">(current)</span></a>
+            <a class="nav-link text-dark" href="/products">Products</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Cart">
             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-shopping-cart"></i>{{#if cart.length}}({{cart.length}}){{/if}}
             </a>
@@ -24,10 +24,10 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="/admin"><i class="fas fa-tachometer-alt"></i></a>
+            <a class="nav-link text-dark" href="/admin" data-toggle="tooltip" data-placement="right" title="Past Orders"><i class="fas fa-tachometer-alt" ></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="/admin/analytics"><i class="fas fa-calculator"></i></a>
+            <a class="nav-link text-dark" href="/admin/analytics" data-toggle="tooltip" data-placement="right" title="Analytics"><i class="fas fa-calculator"></i></a>
           </li>
         </ul>
       </div>
