@@ -2,7 +2,7 @@
 
 An eCommerce store for Viking thunder Gods that like to buy "Antique Wooden Pizzas".
 
-![welcome screenshot](public/welcome.jpg)
+![welcome screenshot](public/welcome.png)
 
 Mimirs Market is an eCommerce store that lets users browse products by searching or category, view their shopping cart, view past orders, and view analytics of all orders. When you're ready to checkout, you can use [Stripe's API](https://stripe.com/docs/api) to make a fake purchase.
 
