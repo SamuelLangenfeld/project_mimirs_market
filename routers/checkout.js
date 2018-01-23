@@ -1,31 +1,27 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const models = require('../models/sequelize');
-const mongooseModels = require('../models/mongoose')
+const models = require("../models/sequelize");
+const mongooseModels = require("../models/mongoose");
 const Order = mongooseModels.Order;
 const Product = models.Product;
 const State = models.State;
 const sequelize = models.sequelize;
 const UnitSale = mongooseModels.UnitSale;
-const {
-  STRIPE_SK,
-  STRIPE_PK
-} = process.env;
-const stripe = require('stripe')(STRIPE_PK);
+const { STRIPE_SK, STRIPE_PK } = process.env;
+const stripe = require("stripe")(STRIPE_PK);
 
-
-router.get('/', async function(req, res) {
+router.get("/", async function(req, res) {
   let cart = req.session.cart;
   cart.forEach(product => {
     product["subTotal"] = product.price * product.quantity;
-  })
+  });
   let total = req.session.total;
   let states = await State.findAll();
 
-  res.render('checkout', { cart, total, states, STRIPE_PK });
+  res.render("checkout", { cart, total, states, STRIPE_PK });
 });
 
-router.post('/', async function(req, res) {
+router.post("/", async function(req, res) {
   let checkoutData = req.body;
   let order = {};
   order["email"] = checkoutData.email;
@@ -40,10 +36,17 @@ router.post('/', async function(req, res) {
     let units = [];
     let items = req.session.cart;
     items.forEach(item => {
-      item.category = item.CategoryId.name;
+      item.category = item.Category.name;
       for (let i = 0; i < item.quantity; i++) {
-        units.push(UnitSale.create({ name: item.name, sku: item.sku, price: item.price, category: item.category }));
-      };
+        units.push(
+          UnitSale.create({
+            name: item.name,
+            sku: item.sku,
+            price: item.price,
+            category: item.category
+          })
+        );
+      }
     });
 
     await Promise.all(units);
@@ -52,10 +55,10 @@ router.post('/', async function(req, res) {
     await order.save();
     req.session.cart = [];
     req.session.total = 0;
-    res.redirect('/admin');
+    res.redirect("/admin");
   } catch (e) {
     console.error(e);
   }
-})
+});
 
 module.exports = router;

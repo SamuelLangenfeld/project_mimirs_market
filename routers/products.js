@@ -2,17 +2,18 @@ var express = require("express");
 var router = express.Router();
 var models = require("../models/sequelize");
 var Product = models.Product;
-var CategoryId = models.CategoryId;
-var sequelize = models.sequelize;
+var Category = models.Category;
+var Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 router.get("/:productId", async function(req, res) {
   try {
     let product = await Product.findById(req.params.productId, {
-      include: [{ model: CategoryId }]
+      include: [{ model: Category }]
     });
     let similarProducts = await Product.findAll({
-      include: [{ model: CategoryId }],
-      where: { categoryId: product.categoryId, id: { $ne: product.id } }
+      include: [{ model: Category }],
+      where: { categoryId: product.categoryId, id: { [Op.ne]: product.id } }
     });
     res.render("products/show", { product, similarProducts });
   } catch (e) {
@@ -26,12 +27,12 @@ router.get("/", async function(req, res) {
 
     if (req.query.minPrice) {
       queryObj["price"] = queryObj["price"] || {};
-      queryObj["price"]["$gte"] = Number(req.query.minPrice);
+      queryObj["price"][Op.gte] = Number(req.query.minPrice);
     }
 
     if (req.query.maxPrice) {
       queryObj["price"] = queryObj["price"] || {};
-      queryObj["price"]["$lte"] = Number(req.query.maxPrice);
+      queryObj["price"][Op.lte] = Number(req.query.maxPrice);
     }
 
     let categoryQueryObj = {};
@@ -70,19 +71,20 @@ router.get("/", async function(req, res) {
 
     if (req.query.search) {
       let search = `%${req.query.search}%`;
-      queryObj["name"] = { $iLike: search };
+      queryObj["name"] = { [Op.iLike]: search };
     }
 
     let products = await Product.findAll({
       order: [sort],
       where: queryObj,
-      include: [{ model: CategoryId, where: categoryQueryObj }]
+      include: [{ model: Category, where: categoryQueryObj }]
     });
-    let categoriesAll = await CategoryId.findAll();
+    let categoriesAll = await Category.findAll();
     let categories = [];
     categoriesAll.forEach(category => {
       categories.push(category.name);
     });
+    console.log(categoriesAll.length);
     res.render("products/index", { products, categories });
   } catch (e) {
     console.error(e);

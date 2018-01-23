@@ -20,7 +20,7 @@
             </div>
             
             <div>
-              <strong>Category: </strong><a href="/products/?category={{product.CategoryId.name}}">{{product.CategoryId.name}}</a>
+              <strong>Category: </strong><a href="/products/?category={{product.Category.name}}">{{product.Category.name}}</a>
             </div>
           </div>
           {{#if (inCart cart product)}}
@@ -62,9 +62,9 @@
           <div>
             ${{product.price}}
           </div>
-          <a href="/products/?category={{product.CategoryId.name}}">
+          <a href="/products/?category={{product.Category.name}}">
             <div>
-              {{product.CategoryId.name}}
+              {{product.Category.name}}
             </div>
           </a>
         </div>

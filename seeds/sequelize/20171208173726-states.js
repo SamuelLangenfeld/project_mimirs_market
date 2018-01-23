@@ -1,11 +1,24 @@
-'use strict';
+"use strict";
 var models = require("../../models/sequelize");
-
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-
-    let states = ["AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA",
+    let states = [
+      "AK",
+      "AL",
+      "AR",
+      "AS",
+      "AZ",
+      "CA",
+      "CO",
+      "CT",
+      "DC",
+      "DE",
+      "FL",
+      "GA",
+      "GU",
+      "HI",
+      "IA",
       "ID",
       "IL",
       "IN",
@@ -50,9 +63,7 @@ module.exports = {
     let statesArray = [];
     states.forEach(state => {
       statesArray.push({
-        name: state,
-        createdAt: (new Date()),
-        updatedAt: (new Date())
+        name: state
       });
     });
     return queryInterface.bulkInsert("States", statesArray);
